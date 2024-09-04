@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { router } from "expo-router";
 import { colors } from '../global/colors';
 import Button1 from '../Buttons/Button1';
+import { useProgress } from '../ProgressContext';
 
 const MuchasGracias = () => {
+
+  const { setProgress } = useProgress();
+
+useEffect(() => {
+  setProgress(1);
+}, []);
+
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,

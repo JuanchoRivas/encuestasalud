@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { router } from "expo-router";
 import { colors } from '../global/colors';
 import Button from '../../components/Button/Button';
+import { useProgress } from '../ProgressContext';
 
 const ComentarioFinal = () => {
   const [text, setText] = useState('');
+
+  const { setProgress } = useProgress();
+
+  useEffect(() => {
+    setProgress(0.88);
+  }, []);
+
 
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
@@ -14,7 +22,7 @@ const ComentarioFinal = () => {
   });
 
   if (!fontsLoaded) {
-    return null; // Puedes mostrar un indicador de carga aquí si lo prefieres
+    return null;
   }
 
   const handlePress = () => {
@@ -26,11 +34,15 @@ const ComentarioFinal = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      onTouchStart={() => Keyboard.dismiss()}
+    >
       <Text style={styles.text}>¿Desea dejar algún comentario final?</Text>
       <TextInput
         style={[styles.input, styles.multilineText]}
-        placeholder="Comentario Opcional"
+        placeholder=""
         autoCapitalize="none"
         autoCorrect={false}
         underlineColorAndroid="transparent"
@@ -47,7 +59,7 @@ const ComentarioFinal = () => {
         borderColor={undefined}
         borderRadius={12}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -76,10 +88,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     textAlignVertical: "top",
-    marginBottom: 20
+    marginBottom: 20,
   },
   multilineText: {
     textAlign: 'center',
   },
 });
-

@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Alert, Keyboard } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { router } from "expo-router";
 import { colors } from '../global/colors';
-import Button1 from '../Buttons/Button1'
+import Button1 from '../Buttons/Button1';
+import { useProgress } from '../ProgressContext';
 
 const Presion1 = () => {
   const [number, setNumber] = useState<string>('');
+
+  const { setProgress } = useProgress();
+
+  useEffect(() => {
+    setProgress(0.33);
+  }, []);
+
 
   const handlePress = () => {
     const parsedNumber = parseInt(number, 10);
@@ -27,7 +35,9 @@ const Presion1 = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View onTouchStart={()=>{
+      Keyboard.dismiss()
+  }} style={styles.container}>
       <View>
         <Text style={styles.text}>Entre 80 y 230, seleccione cuanta presión tuvo hoy</Text>
       </View>

@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../global/colors';
 import { router } from 'expo-router';
 import Button1 from '../Buttons/Button1';
+import { useProgress } from '../ProgressContext';
+
 
 const TomoPresion = () => {
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
   });
+
+  const { setProgress } = useProgress();
+
+  useEffect(() => {
+    setProgress(0.22);
+  }, []);
+
 
   if (!fontsLoaded) {
     return null;

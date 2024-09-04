@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
-import { View, TextInput, Alert, StyleSheet, Text } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, Alert, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
-import  { ActivityIndicator } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
 import { router } from "expo-router";
 import { colors } from './global/colors';
 import Button1 from './Buttons/Button1';
+import { useProgress } from './ProgressContext';
+
+// Prevenir que el splash screen se oculte automáticamente
+SplashScreen.preventAutoHideAsync();
+
 export default function Index() {
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
   });
+
+  const { setProgress } = useProgress();
+
+  useEffect(() => {
+    setProgress(0.0);
+  }, []);
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
   const [number, setNumber] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +36,7 @@ export default function Index() {
   };
 
   if (!fontsLoaded) {
-    return <ActivityIndicator size="large" color="#0000ff"/>;
+    return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
   return (

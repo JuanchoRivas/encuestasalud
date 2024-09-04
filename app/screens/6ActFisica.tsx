@@ -1,11 +1,19 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { router } from "expo-router";
 import { colors } from '../global/colors';
 import Button from '../../components/Button/Button';
+import { useProgress } from '../ProgressContext';
 
 const ActFisica = () => {
+
+  const { setProgress } = useProgress();
+
+  useEffect(() => {
+    setProgress(0.66);
+  }, []);
+
   return (
     <View style={styles.container}>
     <View>

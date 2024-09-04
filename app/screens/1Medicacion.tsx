@@ -3,7 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { colors } from '../global/colors';
 import { router } from 'expo-router';
-import Button1 from '../Buttons/Button1'
+import Button1 from '../Buttons/Button1';
+import { useProgress } from '../ProgressContext';
+import { useEffect, useState } from 'react';
+
 
 const Medicacion = () => {
   const [fontsLoaded] = useFonts({
@@ -11,8 +14,19 @@ const Medicacion = () => {
     Montserrat_500Medium,
   });
 
+  const { setProgress } = useProgress();
+
+  useEffect(() => {
+    // Calcula el progreso en función de la pantalla actual
+    const calculateProgress = () => {
+      const newProgress = 0.11; // Actualiza según la lógica de la pantalla
+      setProgress(newProgress);
+    };
+
+    calculateProgress();
+  }, [setProgress]);
   if (!fontsLoaded) {
-    return null; // Puedes mostrar un indicador de carga aquí
+    return null;
   }
 
 
