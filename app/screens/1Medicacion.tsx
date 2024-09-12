@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { colors } from '../global/colors';
 import { router } from 'expo-router';
 import Button1 from '../Buttons/Button1';
 import { useProgress } from '../ProgressContext';
-import { useEffect, useState } from 'react';
 
+
+const INITIAL_PROGRESS = 0.11;
 
 const Medicacion = () => {
   const [fontsLoaded] = useFonts({
@@ -14,21 +15,15 @@ const Medicacion = () => {
     Montserrat_500Medium,
   });
 
-  const { setProgress } = useProgress();
+  const { progress, setProgress } = useProgress();
 
   useEffect(() => {
-    // Calcula el progreso en función de la pantalla actual
-    const calculateProgress = () => {
-      const newProgress = 0.11; // Actualiza según la lógica de la pantalla
-      setProgress(newProgress);
-    };
-
-    calculateProgress();
+    setProgress(INITIAL_PROGRESS);
   }, [setProgress]);
+
   if (!fontsLoaded) {
     return null;
   }
-
 
   return (
     <View style={styles.container}>
@@ -46,7 +41,7 @@ const Medicacion = () => {
         <Button1
           buttonText="NO"
           onPress={() => { router.push('/screens/2TomoPresion'); }}
-          backgroundColor={colors.log}
+          backgroundColor={colors.corazon1}
           textColor="white"
           borderColor={undefined}
           borderRadius={12}
@@ -78,6 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 10,
+    marginTop: 20,
   },
   buttonYes: {
     flex: 1,

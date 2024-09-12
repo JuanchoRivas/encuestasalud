@@ -6,6 +6,7 @@ export const colors = {
     color5: '#474D66',
     log: '#FE1717',
     text: '#000000',
+    corazon1: "#ef6d78",
     yellow_100: "#F3B664",
     yellow_200: "#ccc155",
     yellow_300: "#F1EB90",

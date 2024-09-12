@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "swift_ship",
-    "slug": "swift_ship",
+    "name": "Hyper_Sis",
+    "slug": "Hyper_Sis",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/corazon.ico",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/dibujo2.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "##16a1b8"
     },
     "ios": {
       "supportsTablet": true
@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "##16a1b8"
       },
       "package": "com.arun_rengamani.swift_ship"
     },

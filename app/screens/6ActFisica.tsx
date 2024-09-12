@@ -31,7 +31,7 @@ const ActFisica = () => {
       <Button
         buttonText="NO"
         onPress={() => { router.push('/screens/7Salados'); }}
-        backgroundColor={colors.log}
+        backgroundColor={colors.corazon1}
         textColor={'white'}
         borderColor={undefined}
         borderRadius={12}

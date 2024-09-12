@@ -5,7 +5,11 @@ import { colors } from '../global/colors';
 import { router } from 'expo-router';
 import Button1 from '../Buttons/Button1';
 import { useProgress } from '../ProgressContext';
+import * as Progress from 'react-native-progress';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
+
+const INITIAL_PROGRESS = 0.22;
 
 const TomoPresion = () => {
   const [fontsLoaded] = useFonts({
@@ -13,12 +17,11 @@ const TomoPresion = () => {
     Montserrat_500Medium,
   });
 
-  const { setProgress } = useProgress();
+  const { progress, setProgress } = useProgress();
 
   useEffect(() => {
-    setProgress(0.22);
-  }, []);
-
+    setProgress(INITIAL_PROGRESS);
+  }, [setProgress]);
 
   if (!fontsLoaded) {
     return null;
@@ -26,9 +29,7 @@ const TomoPresion = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.text}>¿Se midió la presión arterial esta semana?</Text>
-      </View>
+      <Text style={styles.text}>¿Se midió la presión arterial esta semana?</Text>
       <View style={styles.buttonContainer}>
         <Button1
           buttonText="SI"
@@ -42,7 +43,7 @@ const TomoPresion = () => {
         <Button1
           buttonText="NO"
           onPress={() => { router.push('/screens/6ActFisica'); }}
-          backgroundColor={colors.log}
+          backgroundColor={colors.corazon1}
           textColor={'white'}
           borderColor={undefined}
           borderRadius={12}

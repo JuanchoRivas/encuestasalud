@@ -3,8 +3,10 @@ import React from 'react';
 import { StyleSheet, View, Text } from "react-native";
 import { colors } from "./global/colors";
 import { useFonts, Montserrat_400Regular } from '@expo-google-fonts/montserrat';
-import { ProgressBar } from 'react-native-paper';
 import { ProgressProvider, useProgress } from './ProgressContext';
+import * as Progress from 'react-native-progress';
+import GlobalStatusBar from './GlobalStatusBar';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const RootLayout = () => {
   const [fontsLoaded] = useFonts({
@@ -12,44 +14,43 @@ const RootLayout = () => {
   });
 
   if (!fontsLoaded) {
-    return null; // O algún indicador de carga
+    return null;
   }
 
   return (
     <ProgressProvider>
-      <MainContent />
+      <View style={styles.container}>
+        <GlobalStatusBar />
+        <MainContent />
+      </View>
     </ProgressProvider>
   );
 };
 
 const MainContent = () => {
   const { progress } = useProgress();
-  const progressPercentage = Math.round(progress * 100); // Convertir a porcentaje
+  const progressPercentage = Math.round(progress * 100);
 
   return (
     <View style={styles.container}>
       <View style={styles.progressContainer}>
-        <ProgressBar
+        <Progress.Bar
           progress={progress}
-          color="#ff0000" // Color del progreso completado
-          style={styles.progressBar}
+          width={300}
+          height={15}
+          color={colors.ministerio3}
+          borderWidth={0}
+          unfilledColor={colors.palette_100}
+          borderRadius={5}
         />
         <Text style={styles.progressText}>{progressPercentage}%</Text>
       </View>
       <Stack
         screenOptions={{
-          headerStyle: {
-            backgroundColor: colors.ministerio2,
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontFamily: 'Montserrat_400Regular',
-            fontWeight: 'normal',
-          },
-          headerTitle: 'Encuesta Ministerio de Salud De La Pampa'
+          headerShown: false,
         }}
       >
-        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="index" />
         <Stack.Screen name="screens/1Medicacion" />
         <Stack.Screen name="screens/2TomoPresion" />
         <Stack.Screen name="screens/3Presion1" />
@@ -70,13 +71,9 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     alignItems: 'center',
+    paddingTop: getStatusBarHeight(),
     padding: 10,
-  },
-  progressBar: {
-    height: 8,
-    width: '100%',
-    borderRadius: 5, // Esquinas redondeadas opcional
-    backgroundColor: colors.palette_102 // Fondo de la barra de progreso
+    marginTop: 10
   },
   progressText: {
     marginTop: 5,
